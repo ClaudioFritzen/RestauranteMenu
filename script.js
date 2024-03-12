@@ -175,6 +175,12 @@ addressInput.addEventListener("input", function(event){
 // botao de finalizar pedido
 checkoutBtn.addEventListener("click", function(event){
     // validações 
+
+    const isOpen = checkRestaurantOpen();
+    if (!isOpen) {
+        alert("RESTAURANTE FECHADO NO MOMENTO!")
+    }
+
     if(cart.length === 0) return; // para carinho vazio nao fazer nada
     if(addressInput.value === ""){
         addresWarn.classList.remove("hidden")  // 1.0 remove a classe oculta deixando visivel
@@ -183,3 +189,23 @@ checkoutBtn.addEventListener("click", function(event){
     }
 
 })
+
+// verificando se esta aberto ou nao 
+function checkRestaurantOpen(){
+    const data = new Date();
+    const hora = data.getHours();
+    return hora >= 8 && hora < 22; // retorna true, restaurante está aberto
+    
+}
+
+const spanItem = document.getElementById("date-span")
+const isOpen = checkRestaurantOpen();
+
+if(isOpen){
+    spanItem.classList.remove("bg-red-500");
+    spanItem.classList.add("bg-green-600");
+} else {
+    spanItem.classList.remove("bg-green-600");
+    spanItem.classList.add("bg-red-500");
+
+}
