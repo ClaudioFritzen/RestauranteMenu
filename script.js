@@ -160,3 +160,26 @@ function removeItemCart(name){
     }
 
 }
+
+// pegando o valor do input
+addressInput.addEventListener("input", function(event){
+    let inputValue = event.target.value;
+
+    if(inputValue !== ""){
+        addressInput.classList.remove("border-red-500") // 1.0.1 remove o classe linha 180
+        addresWarn.classList.add("hidden") // volta ao estado inicial
+    }
+
+})
+
+// botao de finalizar pedido
+checkoutBtn.addEventListener("click", function(event){
+    // validações 
+    if(cart.length === 0) return; // para carinho vazio nao fazer nada
+    if(addressInput.value === ""){
+        addresWarn.classList.remove("hidden")  // 1.0 remove a classe oculta deixando visivel
+        addressInput.classList.add("border-red-500") // campo do input ficara vermelho
+        return;
+    }
+
+})
