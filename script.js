@@ -179,6 +179,7 @@ checkoutBtn.addEventListener("click", function(event){
     const isOpen = checkRestaurantOpen();
     if (!isOpen) {
         alert("RESTAURANTE FECHADO NO MOMENTO!")
+        return;
     }
 
     if(cart.length === 0) return; // para carinho vazio nao fazer nada
@@ -188,6 +189,23 @@ checkoutBtn.addEventListener("click", function(event){
         return;
     }
 
+    // enviar o pedido para API whats
+    const cartItems = cart.map((item) => {
+        return (
+            ` ${item.name} Quantidade: (${item.quantity}) Preço: €${item.price} <br>`
+        )
+
+    }).join("")
+
+    const message = encodeURIComponent(cartItems)
+    const phone = "351913816383"
+
+    window.open(`https://wa.me/${phone}?text=${message} Mesa: ${addressInput.value}`, "_blank")
+
+    cart = []
+
+    updateCartModal()
+   
 })
 
 // verificando se esta aberto ou nao 
